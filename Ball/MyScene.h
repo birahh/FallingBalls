@@ -10,6 +10,9 @@
 
 @interface MyScene : SKScene
 @property int cont;
+@property BOOL isRunning;
 @property NSTimer *tempCast;
+@property CGPoint currentPoint;
 @property int randomSpawn;
+@property UILabel *points;
 @end
