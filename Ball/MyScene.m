@@ -45,14 +45,6 @@
         _points.text = @"PONTOS";
         [self.view addSubview:_points];
     }
-    /* Called when a touch begins */
-//  for(SKNode *node in self.children){
-//      
-//    }
-    
-    //NSLog(@"%f", sprite.position.x);
-    
-    //NSLog(@"%f     %f", self.view.frame.origin.x + sprite.size.width/2, self.view.frame.origin.x + self.view.bounds.size.width - sprite.size.width/2);
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{

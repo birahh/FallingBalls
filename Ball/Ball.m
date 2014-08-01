@@ -13,7 +13,6 @@
 -(id)initWithImageNamed:(NSString *)name
 {
     if(self = [super init]) {
-        
     }
     
     return self;

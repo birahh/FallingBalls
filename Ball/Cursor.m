@@ -9,5 +9,4 @@
 #import "Cursor.h"
 
 @implementation Cursor
-
 @end
