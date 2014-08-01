@@ -15,4 +15,6 @@
 @property CGPoint currentPoint;
 @property int randomSpawn;
 @property UILabel *points;
+@property SKEmitterNode *cursor;
+
 @end

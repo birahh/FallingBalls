@@ -19,6 +19,7 @@
                                                    selector:@selector(releaseBall)
                                                    userInfo:nil
                                                     repeats:YES];
+        
         _cont = 0;
     }
     
@@ -28,6 +29,15 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     _isRunning = YES;
+    
+    
+    NSString *myParticlePath = [[NSBundle mainBundle] pathForResource:@"MyTestParticle" ofType:@"sks"];
+    
+    SKEmitterNode *myParticle = [NSKeyedUnarchiver unarchiveObjectWithFile:myParticlePath];
+    myParticle.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
+    myParticle.name = @"cursor";
+    
+    [self addChild:myParticle];
     
     if(_points == nil){
         _points = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
@@ -51,6 +61,9 @@
     CGPoint touchLocation = [anyTouch locationInView:self.view];
     touchLocation = [self convertPointFromView:touchLocation];
     _currentPoint = touchLocation;
+    
+    SKEmitterNode *test = (SKEmitterNode*)[self childNodeWithName:@"cursor"];
+    test.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
@@ -80,6 +93,7 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     _isRunning = NO;
     
+    [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
 }
 
 -(void)releaseBall{

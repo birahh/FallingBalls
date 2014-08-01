@@ -24,6 +24,11 @@
 		1CAE10CC198186D700DF1E69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE10A7198186D700DF1E69 /* UIKit.framework */; };
 		1CAE10D4198186D700DF1E69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CAE10D2198186D700DF1E69 /* InfoPlist.strings */; };
 		1CAE10D6198186D700DF1E69 /* BallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE10D5198186D700DF1E69 /* BallTests.m */; };
+		3A6B6906198B3A3500848D7F /* Ball.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B6905198B3A3500848D7F /* Ball.m */; };
+		3A6B6909198B3A4900848D7F /* Cursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B6908198B3A4900848D7F /* Cursor.m */; };
+		3A6B690D198B3B7A00848D7F /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B690C198B3B7A00848D7F /* MainScene.m */; };
+		3A6B6911198B3DD900848D7F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6B690F198B3DD900848D7F /* spark.png */; };
+		3A6B6915198B57F100848D7F /* MyTestParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A6B6914198B57F100848D7F /* MyTestParticle.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +65,14 @@
 		1CAE10D1198186D700DF1E69 /* BallTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BallTests-Info.plist"; sourceTree = "<group>"; };
 		1CAE10D3198186D700DF1E69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1CAE10D5198186D700DF1E69 /* BallTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BallTests.m; sourceTree = "<group>"; };
+		3A6B6904198B3A3500848D7F /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
+		3A6B6905198B3A3500848D7F /* Ball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ball.m; sourceTree = "<group>"; };
+		3A6B6907198B3A4900848D7F /* Cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cursor.h; sourceTree = "<group>"; };
+		3A6B6908198B3A4900848D7F /* Cursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cursor.m; sourceTree = "<group>"; };
+		3A6B690B198B3B7A00848D7F /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
+		3A6B690C198B3B7A00848D7F /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
+		3A6B690F198B3DD900848D7F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		3A6B6914198B57F100848D7F /* MyTestParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTestParticle.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,16 +134,21 @@
 		1CAE10AB198186D700DF1E69 /* Ball */ = {
 			isa = PBXGroup;
 			children = (
+				3A6B690A198B3A4D00848D7F /* Teste */,
 				1CAE10B4198186D700DF1E69 /* AppDelegate.h */,
 				1CAE10B5198186D700DF1E69 /* AppDelegate.m */,
 				1CAE10B7198186D700DF1E69 /* Main.storyboard */,
 				1CAE10BA198186D700DF1E69 /* ViewController.h */,
 				1CAE10BB198186D700DF1E69 /* ViewController.m */,
-				1CAE10BD198186D700DF1E69 /* MyScene.h */,
-				1CAE10BE198186D700DF1E69 /* MyScene.m */,
 				1CAE10C0198186D700DF1E69 /* Spaceship.png */,
 				1CAE10C2198186D700DF1E69 /* Images.xcassets */,
 				1CAE10AC198186D700DF1E69 /* Supporting Files */,
+				3A6B6904198B3A3500848D7F /* Ball.h */,
+				3A6B6905198B3A3500848D7F /* Ball.m */,
+				3A6B6907198B3A4900848D7F /* Cursor.h */,
+				3A6B6908198B3A4900848D7F /* Cursor.m */,
+				3A6B690B198B3B7A00848D7F /* MainScene.h */,
+				3A6B690C198B3B7A00848D7F /* MainScene.m */,
 			);
 			path = Ball;
 			sourceTree = "<group>";
@@ -162,6 +180,17 @@
 				1CAE10D2198186D700DF1E69 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3A6B690A198B3A4D00848D7F /* Teste */ = {
+			isa = PBXGroup;
+			children = (
+				1CAE10BD198186D700DF1E69 /* MyScene.h */,
+				1CAE10BE198186D700DF1E69 /* MyScene.m */,
+				3A6B690F198B3DD900848D7F /* spark.png */,
+				3A6B6914198B57F100848D7F /* MyTestParticle.sks */,
+			);
+			name = Teste;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,7 +270,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CAE10B0198186D700DF1E69 /* InfoPlist.strings in Resources */,
+				3A6B6911198B3DD900848D7F /* spark.png in Resources */,
 				1CAE10C3198186D700DF1E69 /* Images.xcassets in Resources */,
+				3A6B6915198B57F100848D7F /* MyTestParticle.sks in Resources */,
 				1CAE10C1198186D700DF1E69 /* Spaceship.png in Resources */,
 				1CAE10B9198186D700DF1E69 /* Main.storyboard in Resources */,
 			);
@@ -262,10 +293,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A6B6906198B3A3500848D7F /* Ball.m in Sources */,
 				1CAE10BF198186D700DF1E69 /* MyScene.m in Sources */,
 				1CAE10BC198186D700DF1E69 /* ViewController.m in Sources */,
+				3A6B690D198B3B7A00848D7F /* MainScene.m in Sources */,
 				1CAE10B6198186D700DF1E69 /* AppDelegate.m in Sources */,
 				1CAE10B2198186D700DF1E69 /* main.m in Sources */,
+				3A6B6909198B3A4900848D7F /* Cursor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +506,7 @@
 				1CAE10DB198186D700DF1E69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1CAE10DC198186D700DF1E69 /* Build configuration list for PBXNativeTarget "BallTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +515,7 @@
 				1CAE10DE198186D700DF1E69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
