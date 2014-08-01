@@ -38,7 +38,7 @@ const uint32_t WORLD = 0x1 << 1;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+     
     _isRunning = YES;
     
     if (self.scene.view.paused) {
