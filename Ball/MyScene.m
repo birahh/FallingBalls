@@ -30,6 +30,7 @@
     
     _isRunning = YES;
     
+    self.scene.view.paused = NO;
     
     NSString *myParticlePath = [[NSBundle mainBundle] pathForResource:@"MyTestParticle" ofType:@"sks"];
     
@@ -72,6 +73,7 @@
     
     if([block.name isEqualToString:@"bola"]){
         block.name = @"bola_done";
+        _points.text = [NSString stringWithFormat:@"%d", _points.text.intValue+50];
     }
     else if([block.name isEqualToString:@"block"]){
         //[self setPaused:YES];
@@ -83,9 +85,16 @@
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    _isRunning = NO;
+
+    if (_isRunning) {
+        self.scene.view.paused = YES;
+        _isRunning = NO;
+    } else {
+        [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
+    }
     
-    [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
+    
+    
 }
 
 -(void)releaseBall{
@@ -115,7 +124,7 @@
     }
     
     
-    SKAction *action = [SKAction moveToY:(0.0 - sprite.size.height) duration:2.0];\
+    SKAction *action = [SKAction moveToY:(0.0 - sprite.size.height) duration:2.0];
     [self addChild:sprite];
     
     [sprite runAction:[SKAction sequence:@[action,[SKAction removeFromParent]]]];
