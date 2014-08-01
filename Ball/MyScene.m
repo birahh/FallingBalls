@@ -8,13 +8,24 @@
 
 #import "MyScene.h"
 
+const uint32_t BALL = 0x1 << 0;
+const uint32_t WORLD = 0x1 << 1;
+
 @implementation MyScene
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.3
+        
+		self.physicsWorld.contactDelegate = self;
+		self.physicsWorld.gravity = CGVectorMake(0.0, -2.8);
+		self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+		self.name = @"world";
+		self.physicsBody.categoryBitMask = WORLD;
+		self.physicsBody.collisionBitMask = WORLD;
+        
+        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25
                                                      target:self
                                                    selector:@selector(releaseBall)
                                                    userInfo:nil
@@ -30,7 +41,14 @@
     
     _isRunning = YES;
     
-    self.scene.view.paused = NO;
+    if (self.scene.view.paused) {
+        self.scene.view.paused = NO;
+        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25
+                                                     target:self
+                                                   selector:@selector(releaseBall)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    }
     
     NSString *myParticlePath = [[NSBundle mainBundle] pathForResource:@"MyTestParticle" ofType:@"sks"];
     
@@ -60,23 +78,15 @@
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-//    NSArray *child = [self.scene children];
     
-    SKSpriteNode *test = (SKSpriteNode *)[self childNodeWithName:@"bola_done"];
-    test.color = [UIColor colorWithRed:0.8 green:0.6 blue:0.4 alpha:1];
-    
-    //SKNode *current = [self nodeAtPoint:_currentPoint];
-    
-    SKNode *block = [self nodeAtPoint:_currentPoint];
-    
-    //    NSLog(@"%f   , %f", touchLocation.x,touchLocation.y);
+    SKSpriteNode *block = (SKSpriteNode*)[self nodeAtPoint:_currentPoint];
     
     if([block.name isEqualToString:@"bola"]){
         block.name = @"bola_done";
+        block.color = [UIColor colorWithRed:0.8 green:0.6 blue:0.4 alpha:1];
         _points.text = [NSString stringWithFormat:@"%d", _points.text.intValue+50];
     }
     else if([block.name isEqualToString:@"block"]){
-        //[self setPaused:YES];
         _isRunning = NO;
         [_tempCast invalidate];
         [self Ending];
@@ -86,9 +96,12 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
 
-    if (_isRunning) {
+    if (!self.scene.view.paused) {
         self.scene.view.paused = YES;
         _isRunning = NO;
+        [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
+        [_tempCast invalidate];
+        
     } else {
         [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
     }
@@ -107,7 +120,6 @@
     _randomSpawn = rand() %(int)(self.view.frame.origin.x + self.view.bounds.size.width - sprite.size.width);
     _randomSpawn = _randomSpawn + self.view.frame.origin.x + sprite.size.width/2;
     
-    
     sprite.position = [self quadrante];
     
     _cont++;
@@ -123,11 +135,18 @@
         sprite.name = @"block";
     }
     
-    
-    SKAction *action = [SKAction moveToY:(0.0 - sprite.size.height) duration:2.0];
     [self addChild:sprite];
     
-    [sprite runAction:[SKAction sequence:@[action,[SKAction removeFromParent]]]];
+    sprite.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:sprite.size.height center:sprite.position];
+    sprite.physicsBody.categoryBitMask = BALL;
+    sprite.physicsBody.collisionBitMask = BALL;
+    sprite.physicsBody.contactTestBitMask = BALL;
+    [sprite.physicsBody applyImpulse:CGVectorMake(0.0, -25.0)];
+    
+//    SKAction *action = [SKAction moveToY:(0.0 - sprite.size.height) duration:2.0];
+//    [self addChild:sprite];
+//    
+//    [sprite runAction:[SKAction sequence:@[action,[SKAction removeFromParent]]]];
     
     if(!_isRunning){
         
@@ -154,7 +173,7 @@
         point = 320 - 31;
     }
 
-    quad = CGPointMake(point, self.view.frame.origin.y + self.view.bounds.size.height + 62.5);
+    quad = CGPointMake(point, self.view.frame.origin.y + self.view.bounds.size.height + 262.5);
     
     return quad;
 }
