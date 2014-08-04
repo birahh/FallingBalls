@@ -8,5 +8,17 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+typedef enum {
+    rightBall,
+    wrongBall,
+    specialBall
+} BallType;
+
 @interface Ball : SKSpriteNode
+
+@property (nonatomic) BallType ballType;
+
+-(id)initWithType:(BallType) type;
+-(void)fall;
+
 @end

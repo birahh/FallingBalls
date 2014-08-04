@@ -24,6 +24,11 @@
 		1CAE10CC198186D700DF1E69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE10A7198186D700DF1E69 /* UIKit.framework */; };
 		1CAE10D4198186D700DF1E69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CAE10D2198186D700DF1E69 /* InfoPlist.strings */; };
 		1CAE10D6198186D700DF1E69 /* BallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE10D5198186D700DF1E69 /* BallTests.m */; };
+		3A01DEBE19904C1600FBF643 /* cherishball.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A01DEBA19904C1600FBF643 /* cherishball.png */; };
+		3A01DEBF19904C1600FBF643 /* pokeball.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A01DEBB19904C1600FBF643 /* pokeball.png */; };
+		3A01DEC019904C1600FBF643 /* premierball.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A01DEBC19904C1600FBF643 /* premierball.png */; };
+		3A01DEC119904C1600FBF643 /* ultraball.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A01DEBD19904C1600FBF643 /* ultraball.png */; };
+		3A3F4EEB198FC14D00935689 /* Spawner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3F4EEA198FC14D00935689 /* Spawner.m */; };
 		3A6B6906198B3A3500848D7F /* Ball.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B6905198B3A3500848D7F /* Ball.m */; };
 		3A6B6909198B3A4900848D7F /* Cursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B6908198B3A4900848D7F /* Cursor.m */; };
 		3A6B690D198B3B7A00848D7F /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6B690C198B3B7A00848D7F /* MainScene.m */; };
@@ -65,6 +70,12 @@
 		1CAE10D1198186D700DF1E69 /* BallTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BallTests-Info.plist"; sourceTree = "<group>"; };
 		1CAE10D3198186D700DF1E69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1CAE10D5198186D700DF1E69 /* BallTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BallTests.m; sourceTree = "<group>"; };
+		3A01DEBA19904C1600FBF643 /* cherishball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cherishball.png; sourceTree = "<group>"; };
+		3A01DEBB19904C1600FBF643 /* pokeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pokeball.png; sourceTree = "<group>"; };
+		3A01DEBC19904C1600FBF643 /* premierball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = premierball.png; sourceTree = "<group>"; };
+		3A01DEBD19904C1600FBF643 /* ultraball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ultraball.png; sourceTree = "<group>"; };
+		3A3F4EE9198FC14D00935689 /* Spawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spawner.h; sourceTree = "<group>"; };
+		3A3F4EEA198FC14D00935689 /* Spawner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spawner.m; sourceTree = "<group>"; };
 		3A6B6904198B3A3500848D7F /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
 		3A6B6905198B3A3500848D7F /* Ball.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ball.m; sourceTree = "<group>"; };
 		3A6B6907198B3A4900848D7F /* Cursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cursor.h; sourceTree = "<group>"; };
@@ -134,6 +145,7 @@
 		1CAE10AB198186D700DF1E69 /* Ball */ = {
 			isa = PBXGroup;
 			children = (
+				3A3F4EE0198EF9AB00935689 /* Images */,
 				3A6B690A198B3A4D00848D7F /* Teste */,
 				1CAE10B4198186D700DF1E69 /* AppDelegate.h */,
 				1CAE10B5198186D700DF1E69 /* AppDelegate.m */,
@@ -149,6 +161,8 @@
 				3A6B6908198B3A4900848D7F /* Cursor.m */,
 				3A6B690B198B3B7A00848D7F /* MainScene.h */,
 				3A6B690C198B3B7A00848D7F /* MainScene.m */,
+				3A3F4EE9198FC14D00935689 /* Spawner.h */,
+				3A3F4EEA198FC14D00935689 /* Spawner.m */,
 			);
 			path = Ball;
 			sourceTree = "<group>";
@@ -180,6 +194,17 @@
 				1CAE10D2198186D700DF1E69 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3A3F4EE0198EF9AB00935689 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3A01DEBA19904C1600FBF643 /* cherishball.png */,
+				3A01DEBB19904C1600FBF643 /* pokeball.png */,
+				3A01DEBC19904C1600FBF643 /* premierball.png */,
+				3A01DEBD19904C1600FBF643 /* ultraball.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		3A6B690A198B3A4D00848D7F /* Teste */ = {
@@ -240,6 +265,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Matheus Cardoso";
 				TargetAttributes = {
+					1CAE109F198186D700DF1E69 = {
+						DevelopmentTeam = FA22G228P2;
+					};
 					1CAE10C7198186D700DF1E69 = {
 						TestTargetID = 1CAE109F198186D700DF1E69;
 					};
@@ -270,11 +298,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CAE10B0198186D700DF1E69 /* InfoPlist.strings in Resources */,
+				3A01DEBF19904C1600FBF643 /* pokeball.png in Resources */,
+				3A01DEC019904C1600FBF643 /* premierball.png in Resources */,
 				3A6B6911198B3DD900848D7F /* spark.png in Resources */,
 				1CAE10C3198186D700DF1E69 /* Images.xcassets in Resources */,
 				3A6B6915198B57F100848D7F /* MyTestParticle.sks in Resources */,
 				1CAE10C1198186D700DF1E69 /* Spaceship.png in Resources */,
+				3A01DEBE19904C1600FBF643 /* cherishball.png in Resources */,
 				1CAE10B9198186D700DF1E69 /* Main.storyboard in Resources */,
+				3A01DEC119904C1600FBF643 /* ultraball.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +329,7 @@
 				1CAE10BF198186D700DF1E69 /* MyScene.m in Sources */,
 				1CAE10BC198186D700DF1E69 /* ViewController.m in Sources */,
 				3A6B690D198B3B7A00848D7F /* MainScene.m in Sources */,
+				3A3F4EEB198FC14D00935689 /* Spawner.m in Sources */,
 				1CAE10B6198186D700DF1E69 /* AppDelegate.m in Sources */,
 				1CAE10B2198186D700DF1E69 /* main.m in Sources */,
 				3A6B6909198B3A4900848D7F /* Cursor.m in Sources */,
@@ -424,6 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ball/Ball-Prefix.pch";
 				INFOPLIST_FILE = "Ball/Ball-Info.plist";
@@ -438,6 +472,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ball/Ball-Prefix.pch";
 				INFOPLIST_FILE = "Ball/Ball-Info.plist";

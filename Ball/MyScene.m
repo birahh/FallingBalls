@@ -8,42 +8,52 @@
 
 #import "MyScene.h"
 
-const uint32_t BALL = 0x1 << 0;
-const uint32_t WORLD = 0x1 << 1;
+const uint32_t RIGHT_BALL = 0x1 << 0;
+const uint32_t WRONG_BALL = 0x1 << 1;
+const uint32_t SPECIAL_BALL = 0x1 << 2;
+const uint32_t WORLD = 0x1 << 3;
+const uint32_t CURSOR = 0x1 << 4;
+
+const float TIME_INTERVAL = 0.35;
+const float HEIGHT_SPAWN = 144.0;
+const CGPoint INITIAL_TOUCH = {160.0, 280.0};
 
 @implementation MyScene
 
--(id)initWithSize:(CGSize)size {    
+-(id)initWithSize:(CGSize)size
+{
     if (self = [super initWithSize:size]) {
-        /* Setup your scene here */
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+
+        self.backgroundColor = [SKColor colorWithRed:0.485 green:0.485 blue:0.489 alpha:1.0];
+        self.name = @"world";
         
 		self.physicsWorld.contactDelegate = self;
-		self.physicsWorld.gravity = CGVectorMake(0.0, -2.8);
+		self.physicsWorld.gravity = CGVectorMake(0.0, -3.0);
 		self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-		self.name = @"world";
 		self.physicsBody.categoryBitMask = WORLD;
-		self.physicsBody.collisionBitMask = WORLD;
-        
-        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25
-                                                     target:self
-                                                   selector:@selector(releaseBall)
-                                                   userInfo:nil
-                                                    repeats:YES];
-        
+//		self.physicsBody.collisionBitMask = WORLD;
         _cont = 0;
+        
+//        _tempCast = [NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL
+//                                                     target:self
+//                                                   selector:@selector(releaseBall)
+//                                                   userInfo:nil
+//                                                    repeats:YES];
+//
     }
     
     return self;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-     
+
+//  TOUCHES ------
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     _isRunning = YES;
     
     if (self.scene.view.paused) {
         self.scene.view.paused = NO;
-        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25
+        _tempCast = [NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL
                                                      target:self
                                                    selector:@selector(releaseBall)
                                                    userInfo:nil
@@ -55,6 +65,12 @@ const uint32_t WORLD = 0x1 << 1;
     SKEmitterNode *myParticle = [NSKeyedUnarchiver unarchiveObjectWithFile:myParticlePath];
     myParticle.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
     myParticle.name = @"cursor";
+    myParticle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:myParticle.frame.size.height];
+    myParticle.physicsBody.categoryBitMask = CURSOR;
+    myParticle.physicsBody.collisionBitMask = WRONG_BALL|RIGHT_BALL;
+    myParticle.physicsBody.usesPreciseCollisionDetection = YES;
+//    myParticle.physicsBody.contactTestBitMask = WRONG_BALL|RIGHT_BALL;
+    myParticle.physicsBody.dynamic = YES;
     
     [self addChild:myParticle];
     
@@ -66,19 +82,32 @@ const uint32_t WORLD = 0x1 << 1;
     }
 }
 
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-    UITouch *anyTouch = [touches anyObject];
-    CGPoint touchLocation = [anyTouch locationInView:self.view];
-    touchLocation = [self convertPointFromView:touchLocation];
-    _currentPoint = touchLocation;
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self currentPointSetter:touches];
     
     SKEmitterNode *test = (SKEmitterNode*)[self childNodeWithName:@"cursor"];
-    test.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
+    test.particlePosition = _currentPoint;
 }
 
--(void)update:(CFTimeInterval)currentTime {
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self currentPointSetter:touches];
     
+    if (!self.scene.view.paused) {
+        self.scene.view.paused = YES;
+        _isRunning = NO;
+        [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
+        [_tempCast invalidate];
+        
+    } else {
+        [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
+    }
+}
+
+
+-(void)update:(CFTimeInterval)currentTime
+{
     SKSpriteNode *block = (SKSpriteNode*)[self nodeAtPoint:_currentPoint];
     
     if([block.name isEqualToString:@"bola"]){
@@ -89,33 +118,32 @@ const uint32_t WORLD = 0x1 << 1;
     else if([block.name isEqualToString:@"block"]){
         _isRunning = NO;
         [_tempCast invalidate];
-        [self Ending];
+//        [self ending];
     }
     
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
 
-    if (!self.scene.view.paused) {
-        self.scene.view.paused = YES;
-        _isRunning = NO;
-        [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
-        [_tempCast invalidate];
-        
-    } else {
-        [(SKEmitterNode*)[self childNodeWithName:@"cursor"] removeFromParent];
-    }
-    
-    
-    
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    NSLog(@"%@, %@", contact.bodyA, contact.bodyB);
 }
 
--(void)releaseBall{
-    
+
+//  Point setter
+-(void)currentPointSetter:(NSSet *)touches
+{
+    UITouch *anyTouch = [touches anyObject];
+    CGPoint touchLocation = [anyTouch locationInView:self.view];
+    touchLocation = [self convertPointFromView:touchLocation];
+    _currentPoint = touchLocation;
+}
+
+-(void)releaseBall
+{
     SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"ball"]];
     sprite.xScale = 0.5;
     sprite.yScale = 0.5;
-    
     
     _randomSpawn = rand() %(int)(self.view.frame.origin.x + self.view.bounds.size.width - sprite.size.width);
     _randomSpawn = _randomSpawn + self.view.frame.origin.x + sprite.size.width/2;
@@ -124,74 +152,89 @@ const uint32_t WORLD = 0x1 << 1;
     
     _cont++;
     
-    if(_cont == 4){
+    if(_cont == 4) {
         sprite.name = @"bola";
         sprite.color = [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1];
         [sprite setColorBlendFactor:1];
         
         _cont = 0;
-    }
-    else{
+    } else {
         sprite.name = @"block";
     }
     
     [self addChild:sprite];
     
     sprite.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:sprite.size.height center:sprite.position];
-    sprite.physicsBody.categoryBitMask = BALL;
-    sprite.physicsBody.collisionBitMask = BALL;
-    sprite.physicsBody.contactTestBitMask = BALL;
-    [sprite.physicsBody applyImpulse:CGVectorMake(0.0, -25.0)];
+    
+    
+    if(_cont == 4) {
+        sprite.physicsBody.categoryBitMask = RIGHT_BALL;
+    } else {
+        sprite.physicsBody.categoryBitMask = WRONG_BALL;
+    }
+    sprite.physicsBody.collisionBitMask = WRONG_BALL|RIGHT_BALL|CURSOR;
+    sprite.physicsBody.dynamic = YES;
+    sprite.physicsBody.usesPreciseCollisionDetection = YES;
+//    sprite.physicsBody.contactTestBitMask = WRONG_BALL;
+    [sprite.physicsBody applyImpulse:CGVectorMake(0.0, -1.44)];
     
 //    SKAction *action = [SKAction moveToY:(0.0 - sprite.size.height) duration:2.0];
 //    [self addChild:sprite];
 //    
 //    [sprite runAction:[SKAction sequence:@[action,[SKAction removeFromParent]]]];
-    
-    if(!_isRunning){
-        
-    }
+//    
+//    if(!_isRunning){
+//        
+//    }
 
 }
 
--(CGPoint)quadrante{
+-(CGPoint)quadrante
+{
     CGPoint quad;
     int point;
-    if(_randomSpawn < 64){
+    
+    if(_randomSpawn < 64) {
         point = 64 - 31;
     }
-    else if (_randomSpawn < 128){
+    else if (_randomSpawn < 128) {
         point = 128 - 31;
     }
-    else if (_randomSpawn < 192){
+    else if (_randomSpawn < 192) {
         point = 192 - 31;
     }
-    else if (_randomSpawn <256){
+    else if (_randomSpawn <256) {
         point = 256 - 31;
     }
-    else{
+    else {
         point = 320 - 31;
     }
 
-    quad = CGPointMake(point, self.view.frame.origin.y + self.view.bounds.size.height + 262.5);
+    quad = CGPointMake(point, self.view.frame.origin.y + self.view.bounds.size.height + HEIGHT_SPAWN);
     
     return quad;
 }
 
--(void)Ending{
-    BOOL carry = NO;
-    for(SKNode *nodo in [self children]){
-        if(!carry){
-            [nodo removeAllActions];
-            [nodo runAction:[SKAction moveToX:0.0 - nodo.frame.size.width duration:0.2]];
-            carry = YES;
-        }
-        else{
-            [nodo removeAllActions];
-            [nodo runAction:[SKAction moveToX:0 + self.view.frame.size.width + nodo.frame.size.width duration:0.5]];
-            carry = NO;
-        }
-    }
+-(void)wrongBall: (SKSpriteNode *)sprite
+{
+    [sprite.physicsBody applyImpulse:CGVectorMake(0.0, 0.05)];
 }
+//
+//-(void)ending
+//{
+//    BOOL carry = NO;
+//    
+//    for(SKNode *nodo in [self children]) {
+//        if(!carry) {
+//            [nodo removeAllActions];
+//            [nodo runAction:[SKAction moveToX:0.0 - nodo.frame.size.width duration:0.2]];
+//            carry = YES;
+//        } else {
+//            [nodo removeAllActions];
+//            [nodo runAction:[SKAction moveToX:0 + self.view.frame.size.width + nodo.frame.size.width duration:0.5]];
+//            carry = NO;
+//        }
+//    }
+//}
 
 @end

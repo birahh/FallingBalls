@@ -7,6 +7,12 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Cursor.h"
+#import "Spawner.h"
 
 @interface MainScene : SKScene
+
+@property (nonatomic) Cursor *cursor;
+@property (nonatomic) Spawner *spawner;
+
 @end

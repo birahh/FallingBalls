@@ -9,4 +9,5 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface Cursor : SKEmitterNode
+
 @end
