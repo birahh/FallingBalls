@@ -21,13 +21,11 @@
                                                     repeats:YES];
         _cont = 0;
     }
-    
+        _isRunning = YES;
     return self;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    _isRunning = YES;
     
     if(_points == nil){
         _points = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
@@ -65,14 +63,15 @@
     
     //    NSLog(@"%f   , %f", touchLocation.x,touchLocation.y);
     
+    if(_isRunning){
     if([block.name isEqualToString:@"bola"]){
         block.name = @"bola_done";
     }
     else if([block.name isEqualToString:@"block"]){
         //[self setPaused:YES];
         _isRunning = NO;
-        [_tempCast invalidate];
         [self Ending];
+    }
     }
     
 }
@@ -158,6 +157,8 @@
             carry = NO;
         }
     }
+
+     [_tempCast invalidate];
 }
 
 @end
