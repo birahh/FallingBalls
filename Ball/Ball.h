@@ -14,6 +14,13 @@ typedef enum {
     specialBall
 } BallType;
 
+typedef enum : uint32_t {
+    righBallMask = 0x1 << 0,
+    wrongBallMask = 0x1 << 1,
+    specialBallMask = 0x1 << 2,
+    cursorBallMask = 0x1 << 3
+} BallCollisionType;
+
 @interface Ball : SKSpriteNode
 
 @property (nonatomic) BallType ballType;

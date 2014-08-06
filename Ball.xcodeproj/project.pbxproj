@@ -74,6 +74,7 @@
 		3A01DEBB19904C1600FBF643 /* pokeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pokeball.png; sourceTree = "<group>"; };
 		3A01DEBC19904C1600FBF643 /* premierball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = premierball.png; sourceTree = "<group>"; };
 		3A01DEBD19904C1600FBF643 /* ultraball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ultraball.png; sourceTree = "<group>"; };
+		3A01DEC219904FD600FBF643 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		3A3F4EE9198FC14D00935689 /* Spawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spawner.h; sourceTree = "<group>"; };
 		3A3F4EEA198FC14D00935689 /* Spawner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spawner.m; sourceTree = "<group>"; };
 		3A6B6904198B3A3500848D7F /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 		1CAE10A2198186D700DF1E69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A01DEC219904FD600FBF643 /* Accelerate.framework */,
 				1CAE10A3198186D700DF1E69 /* Foundation.framework */,
 				1CAE10A5198186D700DF1E69 /* CoreGraphics.framework */,
 				1CAE10A7198186D700DF1E69 /* UIKit.framework */,
@@ -461,6 +463,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ball/Ball-Prefix.pch";
 				INFOPLIST_FILE = "Ball/Ball-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
@@ -476,6 +479,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ball/Ball-Prefix.pch";
 				INFOPLIST_FILE = "Ball/Ball-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;

@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 Matheus Cardoso. All rights reserved.
 //
 
+
 #import "MyScene.h"
 
-const uint32_t RIGHT_BALL = 0x1 << 0;
-const uint32_t WRONG_BALL = 0x1 << 1;
-const uint32_t SPECIAL_BALL = 0x1 << 2;
-const uint32_t WORLD = 0x1 << 3;
-const uint32_t CURSOR = 0x1 << 4;
+const uint32_t RIGHT_BALL_MASK = 0x1 << 0;
+const uint32_t WRONG_BALL_MASK = 0x1 << 1;
+const uint32_t SPECIAL_BALL_MASK = 0x1 << 2;
+const uint32_t WORLD_MASK = 0x1 << 3;
+const uint32_t CURSOR_MASK = 0x1 << 4;
 
 const float TIME_INTERVAL = 0.35;
 const float HEIGHT_SPAWN = 144.0;
@@ -30,7 +31,7 @@ const CGPoint INITIAL_TOUCH = {160.0, 280.0};
 		self.physicsWorld.contactDelegate = self;
 		self.physicsWorld.gravity = CGVectorMake(0.0, -3.0);
 		self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-		self.physicsBody.categoryBitMask = WORLD;
+		self.physicsBody.categoryBitMask = WORLD_MASK;
 //		self.physicsBody.collisionBitMask = WORLD;
         _cont = 0;
         
@@ -66,20 +67,21 @@ const CGPoint INITIAL_TOUCH = {160.0, 280.0};
     myParticle.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
     myParticle.name = @"cursor";
     myParticle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:myParticle.frame.size.height];
-    myParticle.physicsBody.categoryBitMask = CURSOR;
-    myParticle.physicsBody.collisionBitMask = WRONG_BALL|RIGHT_BALL;
+    myParticle.physicsBody.categoryBitMask = CURSOR_MASK;
+    myParticle.physicsBody.collisionBitMask = WRONG_BALL_MASK|RIGHT_BALL_MASK;
     myParticle.physicsBody.usesPreciseCollisionDetection = YES;
 //    myParticle.physicsBody.contactTestBitMask = WRONG_BALL|RIGHT_BALL;
     myParticle.physicsBody.dynamic = YES;
     
     [self addChild:myParticle];
     
-    if(_points == nil){
-        _points = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
-        _points.center = CGPointMake(self.frame.origin.x + self.view.frame.size.width - _points.frame.size.width/2, self.view.frame.origin.y + self.view.frame.size.height - _points.frame.size.height/2);
-        _points.text = @"PONTOS";
-        [self.view addSubview:_points];
-    }
+//    if(_points == nil){
+//        _points = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 50)];
+//        _points.center = CGPointMake(self.frame.origin.x + self.view.frame.size.width - _points.frame.size.width/2, self.view.frame.origin.y + self.view.frame.size.height - _points.frame.size.height/2);
+//        _points.text = @"PONTOS";
+//        [self.view addSubview:_points];
+//    }
+    
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -168,11 +170,11 @@ const CGPoint INITIAL_TOUCH = {160.0, 280.0};
     
     
     if(_cont == 4) {
-        sprite.physicsBody.categoryBitMask = RIGHT_BALL;
+        sprite.physicsBody.categoryBitMask = RIGHT_BALL_MASK;
     } else {
-        sprite.physicsBody.categoryBitMask = WRONG_BALL;
+        sprite.physicsBody.categoryBitMask = WRONG_BALL_MASK;
     }
-    sprite.physicsBody.collisionBitMask = WRONG_BALL|RIGHT_BALL|CURSOR;
+    sprite.physicsBody.collisionBitMask = WRONG_BALL_MASK|RIGHT_BALL_MASK|CURSOR_MASK;
     sprite.physicsBody.dynamic = YES;
     sprite.physicsBody.usesPreciseCollisionDetection = YES;
 //    sprite.physicsBody.contactTestBitMask = WRONG_BALL;
@@ -214,11 +216,11 @@ const CGPoint INITIAL_TOUCH = {160.0, 280.0};
     
     return quad;
 }
-
--(void)wrongBall: (SKSpriteNode *)sprite
-{
-    [sprite.physicsBody applyImpulse:CGVectorMake(0.0, 0.05)];
-}
+//
+//-(void)wrongBall: (SKSpriteNode *)sprite
+//{
+//    [sprite.physicsBody applyImpulse:CGVectorMake(0.0, 0.05)];
+//}
 //
 //-(void)ending
 //{

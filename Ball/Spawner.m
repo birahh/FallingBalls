@@ -12,9 +12,10 @@ const float HEIGHT_SPAWN = 144.0;
 
 @implementation Spawner
 
--(id)initTimerWithScene:(SKScene *)scene
+-(id)initTimerWithScene:(SKScene *)scene AndTimeInterval:(float)timeInterval
 {
     _scene = scene;
+    _timeInterval = timeInterval;
     _timer = [NSTimer scheduledTimerWithTimeInterval:_timeInterval
                                                  target:self
                                                selector:@selector(releaseBallsInScene)

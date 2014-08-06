@@ -12,8 +12,7 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    _spawner = [[Spawner alloc] initTimerWithScene:self];
-    [_spawner releaseBallsInScene];
+    _spawner = [[Spawner alloc] initTimerWithScene:self AndTimeInterval:0.30];
     
     _cursor = [[Cursor alloc] init];
     [self positionRefresh:touches];

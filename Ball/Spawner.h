@@ -18,7 +18,7 @@
 @property int randomSpawn;
 @property int cont;
 
--(id)initTimerWithScene:(SKScene *)scene;
+-(id)initTimerWithScene:(SKScene *)scene AndTimeInterval:(float)timeInterval;
 -(void)releaseBallsInScene;
 
 @end

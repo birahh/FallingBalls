@@ -8,11 +8,6 @@
 
 #import "Ball.h"
 
-const uint32_t RIGHT_BALL = 0x1 << 0;
-const uint32_t WRONG_BALL = 0x1 << 1;
-const uint32_t SPECIAL_BALL = 0x1 << 2;
-const uint32_t CURSOR = 0x1 << 3;
-
 @implementation Ball
 
 -(id)initWithType:(BallType) type
@@ -26,8 +21,8 @@ const uint32_t CURSOR = 0x1 << 3;
                 self.yScale = 0.125;
                 self.xScale = 0.125;
                 self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.texture.size.height center:self.position];
-                self.physicsBody.categoryBitMask = RIGHT_BALL;
-                self.physicsBody.collisionBitMask = RIGHT_BALL|WRONG_BALL|SPECIAL_BALL|CURSOR;
+                self.physicsBody.categoryBitMask = righBallMask;
+                self.physicsBody.collisionBitMask = righBallMask|wrongBallMask|specialBallMask|cursorBallMask;
                 break;
                 
             case specialBall:
@@ -35,8 +30,8 @@ const uint32_t CURSOR = 0x1 << 3;
                 self.yScale = 0.125;
                 self.xScale = 0.125;
                 self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.texture.size.height center:self.position];
-                self.physicsBody.categoryBitMask = SPECIAL_BALL;
-                self.physicsBody.collisionBitMask = RIGHT_BALL|WRONG_BALL|SPECIAL_BALL|CURSOR;
+                self.physicsBody.categoryBitMask = specialBallMask;
+                self.physicsBody.collisionBitMask = righBallMask|wrongBallMask|specialBallMask|cursorBallMask;
                 break;
                 
             case wrongBall:
@@ -44,8 +39,8 @@ const uint32_t CURSOR = 0x1 << 3;
                 self.yScale = 0.125;
                 self.xScale = 0.125;
                 self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.texture.size.height center:self.position];
-                self.physicsBody.categoryBitMask = WRONG_BALL;
-                self.physicsBody.collisionBitMask = RIGHT_BALL|WRONG_BALL|SPECIAL_BALL|CURSOR;
+                self.physicsBody.categoryBitMask = wrongBallMask;
+                self.physicsBody.collisionBitMask = righBallMask|wrongBallMask|specialBallMask|cursorBallMask;
                 break;
                 
             default:
