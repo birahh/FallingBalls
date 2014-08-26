@@ -14,7 +14,7 @@
 @property NSTimer *tempCast;
 @property CGPoint currentPoint;
 @property int randomSpawn;
-@property UILabel *points;
+@property SKLabelNode *points;
 @property SKEmitterNode *cursor;
 @property SKSpriteNode *BackGround1;
 @property SKSpriteNode *BackGround2;
