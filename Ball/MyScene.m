@@ -16,7 +16,6 @@ const uint32_t WORLD = 0x1 << 1;
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
 		self.physicsWorld.contactDelegate = self;
 		self.physicsWorld.gravity = CGVectorMake(0.0, -2.8);
@@ -83,7 +82,11 @@ const uint32_t WORLD = 0x1 << 1;
     
     if([block.name isEqualToString:@"bola"]){
         block.name = @"bola_done";
-        block.color = [UIColor colorWithRed:0.8 green:0.6 blue:0.4 alpha:1];
+        [block setTexture:[SKTexture textureWithImageNamed:@"Ring 4"]];
+        block.xScale = 0.25;
+        block.yScale = 0.25;
+        
+        //block.color = [UIColor colorWithRed:0.8 green:0.6 blue:0.4 alpha:1];
         _points.text = [NSString stringWithFormat:@"%d", _points.text.intValue+50];
     }
     else if([block.name isEqualToString:@"block"]){
@@ -118,7 +121,7 @@ const uint32_t WORLD = 0x1 << 1;
     _cont++;
     
     if(_cont == 4){
-        sprite = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"Block1"]];
+        sprite = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"Ring 2"]];
         sprite.name = @"bola";
         sprite.color = [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1];
         [sprite setColorBlendFactor:1];
