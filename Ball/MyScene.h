@@ -16,5 +16,8 @@
 @property int randomSpawn;
 @property UILabel *points;
 @property SKEmitterNode *cursor;
+@property SKSpriteNode *BackGround1;
+@property SKSpriteNode *BackGround2;
+@property SKSpriteNode *ScreenEnd;
 
 @end

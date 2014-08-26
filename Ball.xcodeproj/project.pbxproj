@@ -28,6 +28,7 @@
 		1CAE10CC198186D700DF1E69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE10A7198186D700DF1E69 /* UIKit.framework */; };
 		1CAE10D4198186D700DF1E69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CAE10D2198186D700DF1E69 /* InfoPlist.strings */; };
 		1CAE10D6198186D700DF1E69 /* BallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE10D5198186D700DF1E69 /* BallTests.m */; };
+		1CB3287819ACC8BD003A9FC8 /* BackGround.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB3287719ACC8BD003A9FC8 /* BackGround.png */; };
 		2B2A116819AC144E001959BE /* Untitled.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A116719AC144E001959BE /* Untitled.png */; };
 		2B2A116A19AC145F001959BE /* Ring 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A116919AC145F001959BE /* Ring 4.png */; };
 		2B2A116C19AC1469001959BE /* Ring 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A116B19AC1469001959BE /* Ring 2.png */; };
@@ -77,6 +78,7 @@
 		1CAE10D1198186D700DF1E69 /* BallTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BallTests-Info.plist"; sourceTree = "<group>"; };
 		1CAE10D3198186D700DF1E69 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1CAE10D5198186D700DF1E69 /* BallTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BallTests.m; sourceTree = "<group>"; };
+		1CB3287719ACC8BD003A9FC8 /* BackGround.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackGround.png; sourceTree = "<group>"; };
 		2B2A116719AC144E001959BE /* Untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Untitled.png; sourceTree = "<group>"; };
 		2B2A116919AC145F001959BE /* Ring 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ring 4.png"; sourceTree = "<group>"; };
 		2B2A116B19AC1469001959BE /* Ring 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ring 2.png"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				2B9046EF1996F19500E114B6 /* Block1.png */,
+				1CB3287719ACC8BD003A9FC8 /* BackGround.png */,
 				1CAC23A519955A2400D5345D /* Block1.psd */,
 				2B2A116919AC145F001959BE /* Ring 4.png */,
 				1CAC23A619955A2400D5345D /* meteoro1.png */,
@@ -305,6 +308,7 @@
 				1CAE10B0198186D700DF1E69 /* InfoPlist.strings in Resources */,
 				1CAC23AB19955A2400D5345D /* Block1.psd in Resources */,
 				2B2A116C19AC1469001959BE /* Ring 2.png in Resources */,
+				1CB3287819ACC8BD003A9FC8 /* BackGround.png in Resources */,
 				1CAC23AF19955A2400D5345D /* meteoro2.psd in Resources */,
 				3A6B6911198B3DD900848D7F /* spark.png in Resources */,
 				1CAE10C3198186D700DF1E69 /* Images.xcassets in Resources */,

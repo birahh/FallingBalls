@@ -10,6 +10,9 @@
 
 const uint32_t BALL = 0x1 << 0;
 const uint32_t WORLD = 0x1 << 1;
+const uint32_t END = 0x1 << 2;
+
+const float DESC = 0.6;
 
 @implementation MyScene
 
@@ -31,6 +34,18 @@ const uint32_t WORLD = 0x1 << 1;
                                                     repeats:YES];
         
         _cont = 0;
+        self.backgroundColor = [UIColor blackColor];
+    
+        _BackGround1 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"BackGround"]];
+        [_BackGround1 setPosition:CGPointMake(self.scene.frame.origin.x + _BackGround1.size.width/2,self.scene.frame.origin.y + _BackGround1.frame.size.height/2)];
+        [self addChild:_BackGround1];
+        _BackGround1.alpha = 0.5;
+        _BackGround1.name = @"Back1";
+        
+        _ScreenEnd = [[SKSpriteNode alloc]initWithColor:[UIColor blackColor] size:CGSizeMake(self.scene.frame.size.width, 50)];
+        [_ScreenEnd setPosition:CGPointMake(self.scene.frame.origin.x + _ScreenEnd.size.width/2, self.scene.frame.origin.y - 150)];
+        _ScreenEnd.name = @"ScrEnd";
+        [self addChild:_ScreenEnd];
     }
     
     return self;
@@ -77,6 +92,7 @@ const uint32_t WORLD = 0x1 << 1;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    [_BackGround1 setPosition:CGPointMake(_BackGround1.position.x, _BackGround1.position.y - DESC)];
     
     SKSpriteNode *block = (SKSpriteNode*)[self nodeAtPoint:_currentPoint];
     
@@ -92,7 +108,7 @@ const uint32_t WORLD = 0x1 << 1;
     else if([block.name isEqualToString:@"block"]){
         _isRunning = NO;
         [_tempCast invalidate];
-        [self Ending];
+        //[self Ending];
     }
     
 }
@@ -111,6 +127,19 @@ const uint32_t WORLD = 0x1 << 1;
     
     
     
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    
+    if ([contact.bodyA.node.name isEqualToString:@"ScrEnd"]) {
+        if([contact.bodyB.node.name isEqualToString:@"bola"])
+            [contact.bodyB.node removeFromParent];
+    }
+    else if ([contact.bodyB.node.name isEqualToString:@"ScrEnd"]){
+        if([contact.bodyA.node.name isEqualToString:@"bola"])
+            [contact.bodyA.node removeFromParent];
+    }
 }
 
 -(void)releaseBall{
@@ -187,20 +216,25 @@ const uint32_t WORLD = 0x1 << 1;
     return quad;
 }
 
--(void)Ending{
+/*-(void)Ending{
     BOOL carry = NO;
     for(SKNode *nodo in [self children]){
+        NSLog(@"%lu", self.children.count);
         if(!carry){
+            if(![nodo.name isEqualToString:@"Block1"]){
             [nodo removeAllActions];
             [nodo runAction:[SKAction moveToX:0.0 - nodo.frame.size.width duration:0.2]];
             carry = YES;
+            }
         }
         else{
+            if(![nodo.name isEqualToString:@"Block1"]){
             [nodo removeAllActions];
             [nodo runAction:[SKAction moveToX:0 + self.view.frame.size.width + nodo.frame.size.width duration:0.5]];
             carry = NO;
+            }
         }
     }
-}
+}*/
 
 @end
