@@ -25,7 +25,7 @@ const uint32_t WORLD = 0x1 << 1;
 		self.physicsBody.categoryBitMask = WORLD;
 		self.physicsBody.collisionBitMask = WORLD;
         
-        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25
+        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.2
                                                      target:self
                                                    selector:@selector(releaseBall)
                                                    userInfo:nil
@@ -43,11 +43,11 @@ const uint32_t WORLD = 0x1 << 1;
     
     if (self.scene.view.paused) {
         self.scene.view.paused = NO;
-        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25
-                                                     target:self
+        _tempCast = [NSTimer scheduledTimerWithTimeInterval:0.25                                                     target:self
                                                    selector:@selector(releaseBall)
                                                    userInfo:nil
                                                     repeats:YES];
+        
     }
     
     NSString *myParticlePath = [[NSBundle mainBundle] pathForResource:@"MyTestParticle" ofType:@"sks"];
@@ -111,29 +111,35 @@ const uint32_t WORLD = 0x1 << 1;
 }
 
 -(void)releaseBall{
+    SKSpriteNode *sprite;
     
-    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"ball"]];
-    sprite.xScale = 0.5;
-    sprite.yScale = 0.5;
+    
+    
+    _cont++;
+    
+    if(_cont == 4){
+        sprite = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"Block1"]];
+        sprite.name = @"bola";
+        sprite.color = [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1];
+        [sprite setColorBlendFactor:1];
+        
+        sprite.xScale = 0.25;
+        sprite.yScale = 0.25;
+        _cont = 0;
+    }
+    else{
+        sprite = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"meteoro1"]];
+        sprite.name = @"block";
+        sprite.xScale = 0.5;
+        sprite.yScale = 0.5;
+    }
     
     
     _randomSpawn = rand() %(int)(self.view.frame.origin.x + self.view.bounds.size.width - sprite.size.width);
     _randomSpawn = _randomSpawn + self.view.frame.origin.x + sprite.size.width/2;
     
     sprite.position = [self quadrante];
-    
-    _cont++;
-    
-    if(_cont == 4){
-        sprite.name = @"bola";
-        sprite.color = [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1];
-        [sprite setColorBlendFactor:1];
-        
-        _cont = 0;
-    }
-    else{
-        sprite.name = @"block";
-    }
+
     
     [self addChild:sprite];
     
@@ -172,7 +178,7 @@ const uint32_t WORLD = 0x1 << 1;
     else{
         point = 320 - 31;
     }
-
+    
     quad = CGPointMake(point, self.view.frame.origin.y + self.view.bounds.size.height + 262.5);
     
     return quad;
