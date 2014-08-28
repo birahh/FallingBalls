@@ -85,7 +85,6 @@ const float DESC = 0.6;
                 SKAction *action =[SKAction performSelector:@selector(releaseBall) onTarget:self];
                 SKAction *delay = [SKAction waitForDuration:0.2];
                 [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[action, delay]]]];
-
             }
         }
 
