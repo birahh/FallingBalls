@@ -21,7 +21,6 @@ const float DESC = 0.6;
 -(id)initWithSize:(CGSize)size
 {
     if (self = [super initWithSize:size]) {
-        
 		self.physicsWorld.contactDelegate = self;
 		self.physicsWorld.gravity = CGVectorMake(0.0, -2);
 		self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
