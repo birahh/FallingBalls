@@ -9,16 +9,13 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface MyScene : SKScene <SKPhysicsContactDelegate>
-
 @property int cont;
-@property int randomSpawn;
-
-@property CGPoint currentPoint;
-@property CGPoint lastPoint;
-
 @property BOOL isRunning;
-@property NSTimer *tempCast;
-@property UILabel *points;
+@property NSTimeInterval *initialTime;
+@property CGPoint currentPoint;
+@property int randomSpawn;
+@property SKLabelNode *points;
+@property SKLabelNode *status;
 @property SKEmitterNode *cursor;
 
 @end
