@@ -57,54 +57,55 @@ const float DESC = 0.6;
     return self;
 }
 
-
+#pragma mark - Touches
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if ([touches count] == 1) {
-        if (self.scene.view.paused) {
+    if (self.scene.view.paused) {
+        
+        UITouch *anyTouch = [touches anyObject];
+        CGPoint touchLocation = [anyTouch locationInView:self.view];
+        touchLocation = [self convertPointFromView:touchLocation];
+        
+        if ([self isDistanceOfTouchRight:touchLocation]) {
             
-            UITouch *anyTouch = [touches anyObject];
-            CGPoint touchLocation = [anyTouch locationInView:self.view];
-            touchLocation = [self convertPointFromView:touchLocation];
+            self.scene.view.paused = NO;
             
-            if ([self isDistanceOfTouchRight:touchLocation]) {
-                
-                self.scene.view.paused = NO;
-                
-                [self enumerateChildNodesWithName:@"pause-screen" usingBlock:^(SKNode *node, BOOL *stop){[node removeFromParent];}];
-                
-                [self enumerateChildNodesWithName:@"background" usingBlock:^(SKNode *node, BOOL *stop){[node removeFromParent];}];
-                
-                _points.fontSize = 21;
-                _points.position = CGPointMake(270, 535);
-                
-                _status.text = @"";
-                
-                [self parallaxBackground];
-                SKAction *action =[SKAction performSelector:@selector(releaseBall) onTarget:self];
-                SKAction *delay = [SKAction waitForDuration:0.2];
-                [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[action, delay]]]];
-            }
+            [self enumerateChildNodesWithName:@"pause-screen" usingBlock:^(SKNode *node, BOOL *stop){[node removeFromParent];}];
+            
+            [self enumerateChildNodesWithName:@"background" usingBlock:^(SKNode *node, BOOL *stop){[node removeFromParent];}];
+            
+            _points.fontSize = 21;
+            _points.position = CGPointMake(270, 535);
+            
+            _status.text = @"";
+            
+            [self parallaxBackground];
+            SKAction *action =[SKAction performSelector:@selector(releaseBall) onTarget:self];
+            SKAction *delay = [SKAction waitForDuration:0.2];
+            [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[action, delay]]]];
         }
+    }
 
-        NSString *myParticlePath = [[NSBundle mainBundle] pathForResource:@"Cursor" ofType:@"sks"];
+    NSString *myParticlePath = [[NSBundle mainBundle] pathForResource:@"Cursor" ofType:@"sks"];
 
-        SKEmitterNode *myParticle = [NSKeyedUnarchiver unarchiveObjectWithFile:myParticlePath];
-        myParticle.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
-        myParticle.name = @"cursor";
-        myParticle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:myParticle.frame.size.height center:CGPointMake(myParticle.position.x+myParticle.frame.size.height/2, myParticle.position.y+myParticle.frame.size.height/2)];
-        myParticle.physicsBody.affectedByGravity = NO;
-        myParticle.physicsBody.categoryBitMask = CURSOR;
-        myParticle.physicsBody.collisionBitMask = METEOR;
-        myParticle.zPosition = 200;
+    SKEmitterNode *myParticle = [NSKeyedUnarchiver unarchiveObjectWithFile:myParticlePath];
+    myParticle.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
+    myParticle.name = @"cursor";
+    myParticle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:myParticle.frame.size.height center:CGPointMake(myParticle.position.x+myParticle.frame.size.height/2, myParticle.position.y+myParticle.frame.size.height/2)];
+    myParticle.physicsBody.affectedByGravity = NO;
+    myParticle.physicsBody.categoryBitMask = CURSOR;
+    myParticle.physicsBody.collisionBitMask = METEOR;
+    myParticle.zPosition = 200;
 
-        [self addChild:myParticle];
+    [self addChild:myParticle];
     }
 }
 
-
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if ([touches count] == 1) {
+     
     UITouch *anyTouch = [touches anyObject];
     CGPoint touchLocation = [anyTouch locationInView:self.view];
     touchLocation = [self convertPointFromView:touchLocation];
@@ -112,8 +113,9 @@ const float DESC = 0.6;
     
     SKEmitterNode *test = (SKEmitterNode*)[self childNodeWithName:@"cursor"];
     test.particlePosition = [self convertPointFromView:[[touches anyObject] locationInView:self.view]];
+        
+    }
 }
-
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -158,7 +160,12 @@ const float DESC = 0.6;
     }
 }
 
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self touchesEnded:touches withEvent:event];
+}
 
+#pragma mark - Update + Physics
 -(void)update:(NSTimeInterval)currentTime
 {
     SKSpriteNode *block = (SKSpriteNode*)[self nodeAtPoint:_currentPoint];
@@ -179,7 +186,6 @@ const float DESC = 0.6;
     }
 }
 
-
 -(void)didSimulatePhysics
 {
     [self enumerateChildNodesWithName:@"block" usingBlock:^(SKNode *node, BOOL *stop){if(node.position.y<0){[node removeFromParent];}}];
@@ -187,7 +193,7 @@ const float DESC = 0.6;
     [self enumerateChildNodesWithName:@"background" usingBlock:^(SKNode *node, BOOL *stop){if(node.position.y<-1024){[node removeFromParent];}}];
 }
 
-
+#pragma mark - Parallax
 -(void)parallaxBackground
 {
     SKAction *backgroundCimaAction = [SKAction runBlock:^{
@@ -279,6 +285,7 @@ const float DESC = 0.6;
 }
 
 
+#pragma mark - Other methods
 -(void)releaseBall
 {
     SKSpriteNode *sprite;
@@ -315,7 +322,6 @@ const float DESC = 0.6;
     
     [self addChild:sprite];
 }
-
 
 -(void)hitTheRightOne: (SKSpriteNode*) one
 {
